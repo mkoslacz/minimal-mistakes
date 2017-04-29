@@ -1,6 +1,13 @@
 ---
 title: "Moviper - the Android VIPER Library"
 date: "2017-02-08 08:38:09 +0100"
+header:
+  overlay_image: /assets/images/image2.jpg
+  cta_label: "See the Library"
+  cta_url: "https://github.com/mkoslacz/moviper"
+  teaser: /assets/images/image2.jpg
+  overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+  caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
 categories:
   - Moviper
 tags:
@@ -25,6 +32,11 @@ gallery:
     alt: "placeholder image 3"
     title: "Fake help screen"
 ---
+
+A walkthrough that will let you start using Moviper.
+
+{% include read-time.html %}{:.italic}
+
 {% include toc %}
 
 # Introduction

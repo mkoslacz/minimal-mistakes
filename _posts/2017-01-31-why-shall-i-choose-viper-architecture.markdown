@@ -1,6 +1,11 @@
 ---
 title:  "Why shall I choose VIPER architecture?"
 date:   2017-01-31 14:12:20 +0100
+header:
+  overlay_image: /assets/images/image.jpg
+  overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+  caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
+  teaser: /assets/images/image.jpg
 categories:
   - iOS
   - Android
@@ -13,6 +18,12 @@ tags:
   - Moviper
   - VIPER
 ---
+
+The essence of facts that shall convince you to start using Viper architecture.
+
+{% include read-time.html %}{:.italic}
+
+{% include toc %}
 
 ## **TL;DR**
 **VIPER architecture allows you to easily TDD your app, keep the code clean, share modules, and distribute the work. It speeds up a general development process by increasing frequency of sending the new functionalities to QA and Product Owner. It speeds up a multi-platform development as Android and iOS can share the general logic. It also makes you more agile allowing changing only specific parts of an app at any moment. For each screen it introduces five or six modules, but there are tools to generate these for you. It has some entry threshold, but it can be overcame in a few days. There are plenty iOS articles and examples to learn from, and a lil bit of Android ones, but I will try to change this deficiency in this blog, using [Moviper][moviper] VIPER architecture library for Android.**

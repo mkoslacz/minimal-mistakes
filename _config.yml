@@ -77,7 +77,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Mateusz M. P. Koślacz"
+  name             : "Mateusz Koślacz"
   avatar           : "/assets/images/avatar.jpeg"
   bio              : "I am an amazing person."
   location         : "Warsaw, Poland"
@@ -244,8 +244,6 @@ defaults:
       comments: true
       share: true
       related: true
-      sidebar:
-        nav: "posts-nav"
   # _pages
   - scope:
       path: ""

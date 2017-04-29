@@ -10,10 +10,3 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
-
-# blog posts sidebar links
-posts-nav:
-  - title: "Blog"
-    url: /
-  - title: "About"
-    url: /about/
