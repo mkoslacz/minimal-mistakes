@@ -1,0 +1,9 @@
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
+
+<!-- why doesn't it work anywhere else than index.html? - original paginated code is in paginated+posts.html -->
+<!-- for post in paginator.posts  -->
+{% for post in site.posts %}
+  {% include archive-single.html %}
+{% endfor %}
+
+<!-- include paginator.html  -->
