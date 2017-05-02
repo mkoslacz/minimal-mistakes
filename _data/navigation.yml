@@ -1,9 +1,13 @@
 # main links
 main:
   - title: "Blog"
-    url: /
+    url: /archive
   - title: "About"
     url: /about/
+  - title: 'Moviper'
+    url: https://github.com/mkoslacz/moviper
+  - title: '<i class="fa fa-fw fa-github" aria-hidden="true"></i><span> </span>'
+    url: https://github.com/mkoslacz/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"

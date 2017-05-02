@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "Mateusz Koślacz Blog"
+title                    : "Mateusz Koślacz Homepage"
 title_separator          : "-"
 name                     : "Mateusz Koślacz"
 description              : "An amazing website."
@@ -79,7 +79,7 @@ analytics:
 author:
   name             : "Mateusz Koślacz"
   avatar           : "/assets/images/avatar.jpeg"
-  bio              : "I am an amazing person."
+  bio              : "A neat architecture lover, a clean code enthusiast, a novelties explorer."
   location         : "Warsaw, Poland"
   email            : "contact@mateuszkoslacz.com"
   uri              :
