@@ -34,10 +34,15 @@ gallery:
     alt: "placeholder image 3"
     title: "Fake help screen"
 ---
-{% include toc %}
+
 
 **iOS dev note:** There is also a iOS version of Moviper library that we succesfully use in production environment, but it's not yet open-sourced. Stay tuned to not to miss the iOS Moviper!
 {: .notice--warning}
+
+{% include toc %}
+
+# **TL;DR**
+**In this blog post I showcase my Android VIPER library usage. The library is called Moviper. To do so I implement the sample Kotlin Android app using Moviper and RxJava step by step and explain the library specific implementation details. The result of this work is available [here](https://github.com/mkoslacz/MoviperShowcase). The way I did the app here is only one of available for Moviper uses as it comes with many flavors, applicable ie if you don't like RxJava or Kotlin. For more - see the [Moviper readme](https://github.com/mkoslacz/Moviper).**
 
 # Introduction
 
@@ -58,7 +63,7 @@ It will consist of
 
 Ok, enough talking, let's get our feet wet!
 
-# Setup
+# Library setup
 
 First of all, install the [Moviper Templates Generator](https://github.com/mkoslacz/MoviperTemplateGenerator) using instructions provided in the repository readme. Just click the link. Remember to restart the Android Studio after the installation!
 
@@ -133,7 +138,7 @@ Mentioned division allows us to create modular, testable, clean and neat code. N
 </activity>
 ```
 
-# Contract
+# Login view contract
 
 The starting point of every screen is a contract. It generally has the one purpose - it defines whole control and data flow in the given screen. Let's define methods needed to implement the whole login screen:
 
@@ -283,19 +288,19 @@ addSubscription(
                         { view?.showError(it) }))
 ```
 So let's see what happens here:
-1. `addSubscription` call that wraps our stream to make sure that there won't be any memory leak
-2.
-3. call on the loginClicks stream provided by our view that is defined in our contract
-4. we show the loading on the view to notify the user about the processing of the request
-5. delegation of the work to the background thread from io scheduler as it will be network based
-6. delegation of the data work to the interactor using a method that is defined in our contract
-7. we switch the thread back to the mainThread as in the methods below we will touch the UI
-8. we call our special operator that will allow us to retry the calls in case of failure
-9.
-10. if the interactor performed our request succesfully we delegate the screen switch action to the routing using a method that is defined in our contract
-11. same as above but we finish login activity after login
-12.
-13. if the request has failed we show the error to the user
+1. `addSubscription` call that wraps our stream to make sure that there won't be any memory leak,
+2. we take the stream from `view` - see the following line,
+3. call on the `loginClicks` stream provided by our view that is defined in our contract,
+4. we show the loading on the view to notify the user about the processing of the request,
+5. delegation of the work to the background thread from io scheduler as it will be network based,
+6. delegation of the data work to the interactor using a method that is defined in our contract,
+7. we switch the thread back to the mainThread as in the methods below we will touch the UI,
+8. we call our special operator that will allow us to retry the calls in case of failure,
+9. start of ReactiveX `onNext` lambda method,
+10. if the interactor performed our request succesfully we delegate the screen switch action to the routing using a method that is defined in our contract,
+11. same as above but we finish login activity after login,
+12. end of ReactiveX `onNext` lambda method,
+13. ReactiveX `onError` method - if the request has failed we show the error to the user.
 
 The second stream based on `view?.helpClicks` has the similar philosophy, so I won't cover it step by step as it's pretty straightforward in the context of the previous stream.
 
@@ -403,7 +408,8 @@ data class LoginBundle(val login: String,
 }
 ```
 
-*Pro reader note: yep, I know how it looks like, but dude, it's for presentation purposes.*
+**Pro reader note:** yep, I know how it looks like, but dude, it's for presentation purposes.
+{: .notice--info}
 
 Well, I don't want to focus on networking implementation here, it's over-simplified moreover. I put it to delegate to don't distract you. Just trust me, this code takes the login and password and translates it in the way readable for server authorization. In the regular case we would need to keep the header for whole session using Interceptors, and I personally would abstract-out the network layer implementation from the Interactor using [Repository Design Pattern](https://medium.com/@krzychukosobudzki/repository-design-pattern-bc490b256006), but it's the material for an another article anyway. The important thing here is that we have our data handling delegated to Interactor.
 

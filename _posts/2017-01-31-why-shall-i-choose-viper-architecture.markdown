@@ -30,7 +30,7 @@ read_time: true
 
 Every developer in his path encounters pretty similar obstacles while trying to advance from basics to advanced solutions. I think that today's tutorials and blog posts aren't very helpful in such cases, because they form two groups in general - very basic ones and very advanced ones, so obviously there is a huge gap between these clusters. In my blog I will try to fill the mentioned gap on the example of a one specific architecture, that, I think, makes the journey from primitive to the masters knowledge somehow easy and pleasant. In this post I will try to convince you that using this architecture - a VIPER one - is worth trying. Let's begin with reminding ourselves what caused the most of the problems on our developers path.
 
-# Junior Dev Retrospection
+# Junior Dev Retrospection (horror)
 
 Fellow mobile developer, at the very beginning, most probably you implemented your first hello world app, then started to explore the depths of your platform. Very quickly you have realized that your Activities / View Controllers have grown to the enormous size, making you flea to the Google to find some solution for that. Then you found it, the glorious MVP/MVC/MVVM/MV-something architecture that claimed it will resolve your problem for more than sure. So you grabbed your coffee, rushed the keyboard and rewrote your app in the brand new, proper way.
 
@@ -42,13 +42,13 @@ Let's skip the later part for now. Now think about that other situation, the sit
 
 That sad scenario lead you to discover testing and [Test Driven Development][tdd]. You quickly went through all of the tutorials of TDD-ing a simple calculator app, instantly grasped the basics and rolled up your sleeves to reimplement your app in the proper way. It rapidly turned out that it's kinda like tutorial of drawing an owl:
 
-![That's how the first approach to the testing looks like!]({{ site.url }}/assets/images/HowToDrawAnOwl.jpg){:.center-image}
-*That's how the first approach to the testing looks like!*{: style="text-align: center; display: block;"}
+
+{% include clickable_figure image_path="/assets/images/HowToDrawAnOwl.jpg" alt="this is a placeholder image" caption="That's how the first approach to the testing looks like!" %}
 *Source: http://forimpact.org/for-impact-ideas/how-to-draw-an-owl/*{: style="text-align: center; display: block; font-size: 60%;"}
 
 You quickly realized that you have no idea how to test your system. *"What am I supposed to test? I click this button in app and load my data in Activity / View Controller, there is nothing to test really!"*
 
-# Reveal
+# Reveal - VIPER architecture
 
 Here comes the VIPER architecture — a reveal for these problems. It proposes a pretty decoupled design of each scene (let's say *"scene"* like that for the simplicity right now) that's a good start for making all of your responsibilities delegated. Moreover, decoupling the architecture makes it contain a reasonable amount of [seams][seams] that allows you TDD your app. Actually, it's not a completely different approach than a well-known MVP, it's just a concept of adding some modules to the presenter to delegate its responsibilities that repeatedly appears in all of the mobile application scenes. Let's dive in!
 
@@ -61,12 +61,11 @@ Each VIPER module consists of following sub-modules:
 5. **Entity** (-ies): objects representing your data,
 6. **Builder / Starter**: starts a whole VIPER module.
 
-![That's the general look of the Viper architecture.]({{ site.url }}/assets/images/ViperDiagram.png){:.center-image}
-*That's the general look of the Viper architecture.*{: style="text-align: center; display: block;"}
+{% include clickable_figure image_path="/assets/images/ViperDiagram.png" alt="this is a placeholder image" caption="That's the general look of the Viper architecture." %}
 
 I won't cover each of them in this post as it's rather a material for an another publication. I will discuss it in the next article, but if you are really curious right now, you can read [the original objc VIPER article][objc-viper] (I guess).
 
-# Idea
+# Viper architecture idea
 
 For now let's focus on the general idea of VIPER. It makes your every screen a independent module you can move around your project or even your whole projects portfolio. There's even more: it makes every sub-module independent so you can ie. use VIPER from one project in the another one. You can switch the implementation of only one of sub-modules to meet the requirements of the target application.
 
