@@ -6,7 +6,7 @@ main:
     url: /about/
   - title: 'Moviper'
     url: https://github.com/mkoslacz/moviper
-  - title: '<i class="fa fa-fw fa-github" aria-hidden="true"></i><span> </span>'
+  - title: '<i class="fa fa-github"></i>'
     url: https://github.com/mkoslacz/
   # - title: "Sample Posts"
   #   url: /year-archive/

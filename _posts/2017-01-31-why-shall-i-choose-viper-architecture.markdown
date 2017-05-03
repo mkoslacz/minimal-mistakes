@@ -2,10 +2,12 @@
 title:  "Why shall I choose VIPER architecture?"
 date:   2017-01-31 14:12:20 +0100
 header:
+  overlay_color: "#333"
   overlay_image: /assets/images/image.jpg
   overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
   caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
   teaser: /assets/images/image.jpg
+excerpt: "The essence of facts that shall convince you to start using Viper architecture."
 categories:
   - iOS
   - Android
@@ -17,12 +19,8 @@ tags:
   - Architecture
   - Moviper
   - VIPER
+read_time: true
 ---
-
-The essence of facts that shall convince you to start using Viper architecture.
-
-{% include read-time.html %}{:.italic}
-
 {% include toc %}
 
 ## **TL;DR**

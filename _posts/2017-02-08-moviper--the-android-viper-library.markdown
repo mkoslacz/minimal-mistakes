@@ -2,12 +2,14 @@
 title: "Moviper - the Android VIPER Library"
 date: "2017-02-08 08:38:09 +0100"
 header:
+  overlay_color: "#333"
   overlay_image: /assets/images/image2.jpg
   cta_label: "See the Library"
   cta_url: "https://github.com/mkoslacz/moviper"
   teaser: /assets/images/image2.jpg
   overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
   caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
+excerpt: "A walkthrough that will let you start using Moviper."
 categories:
   - Moviper
 tags:
@@ -32,12 +34,10 @@ gallery:
     alt: "placeholder image 3"
     title: "Fake help screen"
 ---
-
-A walkthrough that will let you start using Moviper.
-
-{% include read-time.html %}{:.italic}
-
 {% include toc %}
+
+**iOS dev note:** There is also a iOS version of Moviper library that we succesfully use in production environment, but it's not yet open-sourced. Stay tuned to not to miss the iOS Moviper!
+{: .notice--warning}
 
 # Introduction
 
@@ -558,7 +558,7 @@ And last but not least, stay tuned as I'll be posting more about the Moviper goo
 - dispatching presenters on runtime (using the same view with different presetenters),
 - using multiple presenters with one view,
 - creating the viper modules for RecyclerView cells,
-- reating Android Service based viper modules and standalone viper modules,  
+- reating Android Service based viper modules and standalone viper modules,
 - passing Intent extras to presenters,
 - TDDing Viper modules,
 - using Moviper Test utils,
