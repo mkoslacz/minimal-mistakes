@@ -7,7 +7,7 @@ header:
   cta_label: "See the Library"
   cta_url: "https://github.com/mkoslacz/moviper"
   teaser: /assets/images/image2.jpg
-  overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+  overlay_filter: 0.5
   caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
 excerpt: "A walkthrough that will let you start using Moviper."
 categories:
@@ -23,34 +23,34 @@ tags:
 gallery:
   - url: /assets/images/LoginActivityLayout.png
     image_path: /assets/images/LoginActivityLayout.png
-    alt: "placeholder image 1"
+    alt: "Login screen screenshot from app created in this post."
     title: "Login screen"
   - url: /assets/images/ProfileActivityLayout.png
     image_path: /assets/images/ProfileActivityLayout.png
-    alt: "placeholder image 2"
+    alt: "Fake profile screen screenshot from app created in this post."
     title: "Fake profile screen"
   - url: /assets/images/HelpActivityLayout.png
     image_path: /assets/images/HelpActivityLayout.png
-    alt: "placeholder image 3"
+    alt: "Fake help screen screenshot from app created in this post."
     title: "Fake help screen"
 ---
 
 
-**iOS dev note:** There is also a iOS version of Moviper library that we succesfully use in production environment, but it's not yet open-sourced. Stay tuned to not to miss the iOS Moviper!
+**iOS dev note:** There is also a iOS version of Moviper library that we successfully use in production environment, but it's not yet open-sourced. Stay tuned to not to miss the iOS Moviper!
 {: .notice--warning}
 
 {% include toc %}
 
 # **TL;DR**
-**In this blog post I showcase my Android VIPER library usage. The library is called Moviper. To do so I implement the sample Kotlin Android app using Moviper and RxJava step by step and explain the library specific implementation details. The result of this work is available [here](https://github.com/mkoslacz/MoviperShowcase). The way I did the app here is only one of available for Moviper uses as it comes with many flavors, applicable ie if you don't like RxJava or Kotlin. For more - see the [Moviper readme](https://github.com/mkoslacz/Moviper).**
+**In this blog post I showcase my Android VIPER library usage. The library is called Moviper. To do so I implement the sample Kotlin Android app using Moviper and RxJava step by step and explain the library specific implementation details. The result of this work is available [here](https://github.com/mkoslacz/MoviperShowcase). The way I did the app here is only one of available for Moviper uses as it comes with many flavors, applicable in example if you don't like RxJava or Kotlin. For more - see the [Moviper readme](https://github.com/mkoslacz/Moviper).**
 
 # Introduction
 
-On the previous post I have covered pros and cons and a general idea of the Viper architecture. For now let's focus on [Moviper - the Android Viper library](https://github.com/mkoslacz/Moviper). Moviper comes in many different flavors, there are more and less advanced ones - you can just pick one that fits you most. In this post I'll show you the flavor I use in the daily basis on the example of a simple Github login screen. I use Rx submodules Passive Autoinject Views and I wrap it up using Kotlin language with Android Kotlin Extensions. Sounds scary? Actually it's pretty straightforward. Fear not and read on!
+On the previous post I have covered pros and cons and a general idea of the Viper architecture. For now let's focus on [Moviper - the Android Viper library](https://github.com/mkoslacz/Moviper). Moviper comes in many different flavors, there are more and less advanced ones - you can just pick one that fits you most. In this post I'll show you the flavor I use in the daily basis on the example of a simple Github login screen. I use Rx flavor with *Passive Autoinject Views* and I wrap it up using Kotlin language with Android Kotlin Extensions. Sounds scary? Actually it's pretty straightforward. Fear not and read on!
 
 We are going to create very simple app, that will allow a user to log in to Github and go to the profile page, and provide info about the app.
 
-It will consist of
+It will consist of:
 - login screen:
   - allows user to go to the help screen,
   - allows user to login and then leads to profile page.
@@ -77,24 +77,26 @@ dependencies {
 }
 ```
 
-Now things get interesting. Let's create our first Viper Activity! Right-click the app package and select `New -> Moviper -> RxActivity`.
+Now things get interesting. Let's create our first Viper Activity! Right-click the app package and select `New -> Moviper -> RxActivity` to start the generator.
 
-{% include clickable_figure image_path="/assets/images/chosingViperRxActivity.png" alt="this is a placeholder image" caption="This is where lies RxActivity generator." %}
+{% include clickable_figure image_path="/assets/images/chosingViperRxActivity.png" alt="Location of RxActivity generator screenshot" caption="This is where lies RxActivity generator." %}
 
-**Pro tip:** you can even assign a shortcut to creating any of the Moviper modules using `Manage shortcuts` menu (easy to find using our standard `cmd/ctrl + shift + A` magic) and searching for "moviper" actions and right clicking them to add a shortcut. That will be even more smooth using the great [Key Promoter](https://plugins.jetbrains.com/plugin/4455-key-promoter) plugin, it will suggest you assigning a shortcut to the most used actions, you should definitely check it out!
+**Pro tip:** you can even assign a shortcut to creating any of the Moviper modules using `Manage shortcuts` menu (easy to find using our standard `cmd/ctrl + shift + A` magic), searching for "moviper" actions and right clicking them to add a shortcut. That will be even more smooth using the great [Key Promoter](https://plugins.jetbrains.com/plugin/4455-key-promoter) plugin, it will suggest you assigning a shortcut to the most used actions, you should definitely check it out!
 {: .notice--info}
 
-{% include clickable_figure image_path="/assets/images/assignMoviperShortcuts.png" alt="this is a placeholder image" caption="Assigning shortcuts for Moviper actions will definitely come in handy." %}
+{% include clickable_figure image_path="/assets/images/assignMoviperShortcuts.png" alt="Assigning shortcuts to Moviper actions screenshot" caption="Assigning shortcuts for Moviper actions will definitely come in handy." %}
 
-Fill up the form like I did on the screenshot below: name it `LoginActivity`, mark it as a `Launcher Activity` and select a `Passive Autoinject` type. There are some more options there and I hope that they're pretty self explaining. If I'm wrong - just trust me for now - I'll cover them later anyway.
+Fill up the form like I did on the screenshot below: name the screen `LoginActivity`, mark it as a `Launcher Activity` and select a `Passive Autoinject` type. There are some more options there and I hope that they're pretty self explaining. If I'm wrong - just trust me for now - I'll cover them later anyway.
 
-{% include clickable_figure image_path="/assets/images/ViperActivityCreation.png" alt="this is a placeholder image" caption="That's how I have created the LoginActivity." %}
+{% include clickable_figure image_path="/assets/images/ViperActivityCreation.png" alt="Filled up RxActivity generator screenshot" caption="That's how I have created the LoginActivity." %}
 
 After confirming our choice we land in the `Contract` interface. At your left hand side, on the project overview, you can see the rest of the classes generated by plugin in `*.viper.login` package. Viper is a general package for viper modules, and login was inferred from the name we gave the generated Activity.
 
 But hold on - I told you that we will make a Kotlin app, and these files feel somehow suspicious. Yep, MoviperTemplateGenerator creates only Java file sets and for now there is no plan to migrate it to Kotlin. This way we can use it in for generating Java code, and for Kotlin apps we can convert it to Kotlin very easy, so let's do it right now using magic `alt + cmd/ctrl + shift + K` shortcut at whole `login` package.
 
-For now we have a set of 5 Kotlin files:
+If you're not comfortable with Kotlin I recommend you to follow [the official tutorial](https://kotlinlang.org/docs/tutorials/kotlin-android.html), it's not a big deal, I guarantee you that you will catch it in a few hours ;)
+
+Let's go back to our app. For now we have a set of 5 Kotlin files:
 
 - `LoginActivity` class (the view)
 - `LoginContract` interface
@@ -102,7 +104,7 @@ For now we have a set of 5 Kotlin files:
 - `LoginPresenter` class
 - `LoginRouting` class
 
-It's a good time to stop now and discuss the responsibility distribution over these components. In a classical objc-viper we have a following division:
+It's a good time to stop now and discuss the responsibility distribution over these components. In classical objc-viper we have a following division:
 
 >The main parts of VIPER are:
 >
@@ -118,13 +120,13 @@ For Moviper I have worked out the following, slightly shifted responsibility fra
 
 - View: displays what the Presenter wants and relays user input back to the Presenter. (exactly the same as above)
 - Interactor: contains the data read/write and preprocessing logic - all of the api and db calls go here.
-- Presenter: contains the buisness logic: reacts to user input, ie translating it to the interactor and routing calls, decides what to display on the view, validates the data in the business usecases sense (ie username can't be empty).
-- Entity: data objects that are used in the app business logic, independent from a data handling and view implementation.
-- Routing: contains all system-related logic. You can alternatively call it "System". It manages navigation, screen transitions, scheduling notifications, etc.
+- Presenter: contains the business logic: reacts to user input, translating it to the interactor and routing calls, decides what to display on the view, validates the data in the business usecases sense (ie username can't be empty).
+- Entity: data objects that are used in the app business logic, independent from the data handling and view implementation.
+- Routing: contains all system-related logic. You can alternatively call it "System". It manages navigation, screen transitions, notifications scheduling, etc.
 
-Mentioned division allows us to create modular, testable, clean and neat code. Now we know where to put our stuff, so let's begin to code!
+Mentioned division allows us to create a modular, testable, clean and neat code. Now we know where to put our stuff, so let's begin to code!
 
-**Important!** Moviper allows you to handle orientation changes in the very easy way and publish results from background thread after recreating view but now, for simplicity, please mark our activity to be in a blocked, portrait orientation by adding the `android:screenOrientation="portrait"` line to its entry in the `AndroidManifest.xml` file as below. Handling orientation changes in Moviper will be covered in the later posts.
+**Important!** Moviper allows you to handle orientation changes in the very easy way and publish results from background thread after recreating view, but now, for simplicity, please mark our activity to be in a blocked, portrait orientation by adding the `android:screenOrientation="portrait"` line to its entry in the `AndroidManifest.xml` file as below. Handling orientation changes in Moviper will be covered in the later posts.
 {: .notice--warning}
 
 ```xml
@@ -179,11 +181,11 @@ data class UserModel(val login: String,
 ```
 Let's put them to the `data` package:
 
-{% include clickable_figure image_path="/assets/images/DataClassesLocation.png" alt="this is a placeholder image" caption="Let's put our nice data classes to the separate package." %}
+{% include clickable_figure image_path="/assets/images/DataClassesLocation.png" alt="data package screenshot" caption="Let's put our nice data classes to the separate package." %}
 
-Going back to our contract - as you can see, presenter has no interface here. Welcome to the passive word from the chosen Moviper flavor. Passive Viper means that View has no idea about Presenter is being attached to it. Actually you can access presenter from view using `presenter` property / `getPresenter()` method, but in this flavor it will be just plain ViperPresenter, so you won't have an access to your actual presenter methods. View communicates with presenter through event streams exposed through view interface to which presenter subscribes when attaching to the view.
+Going back to our contract - as you can see, presenter has no interface here. Welcome to the passive word from the chosen Moviper flavor. Passive means that View has no idea about Presenter being attached to it. Actually you can access presenter from view using `presenter` property / `getPresenter()` method, but in a passive flavor you will get just plain ViperPresenter, so you won't have an access to your actual presenter methods. View communicates with presenter using event streams exposed through view interface to which presenter subscribes when attaching to the view.
 
-Interactor and Routing are, let's say, Presenters "tools", presenter delegates work to them and receives results using Observables. That said, there is no component that calls Presenters methods, so there is no need to make it implement any interface. This allows us to create multiple presenters (where each has it's own routing and interactor) for one view and switch them seamlessly! We'll go back to this feature later.
+Interactor and Routing are, let's say, Presenters "tools", presenter delegates work to them and receives calls results using Observables. That said, there is no component that calls Presenters methods, so there is no need to make it implements any interface. This allows us to create multiple presenters (where each has it's own routing and interactor) for one view and switch them seamlessly! We'll go back to this feature later.
 
 # Presenter
 
@@ -204,7 +206,7 @@ class LoginPresenter :
 
 As you can see, there are declarations of routing and interactor generated by generator already. You probably noticed that class declaration is pretty complicated because of some crazy generic stuff. Don't worry, after implementing some Viper modules you will get what happens here, but for now just trust the force (the generator, to be more specific).
 
-Let's begin with defining what shall happen on the very beginning of the presenter lifecycle in Viper module - on a presenter to a view attach. To achieve that override the `attachView(attachingView: LoginContract.View?)` method. Don't forget to call super to allow Moviper do its setup work and to use `view` property, not the `attachingView` argument as a rule of the thumb! (the latter is necessary for correct orientation changes handling, we will cover it later)
+Let's begin with defining what shall happen on the very beginning of the presenter lifecycle in Viper module - on a presenter to a view attach. To achieve that let's override the `attachView(attachingView: LoginContract.View?)` method. Don't forget to call super to allow Moviper do its setup work, and don't forget to use `view` property, not the `attachingView` argument as a rule of the thumb! (the latter is necessary for correct orientation changes handling, we will cover it later, as many other details mentioned here ;) ).
 
 ```kotlin
 class LoginPresenter :
@@ -256,21 +258,21 @@ fun <T> Observable<T>.retrySubscribe(onNext: (T) -> Unit,
                 .subscribe()!!
 ```
 
-This operator allows our streams to signal an error and do not unsubscribe after that - if user wants to log in and he's out of the Internet, he will get some error about it, and we want to allow him to retry this action. I'll describe implementation details of it in the another post.
+This operator allows our streams to signal an error and to not to unsubscribe after that - if user wants to log in and he's out of the Internet, he will get some error about it, and we want to allow him to retry this action. That's why we use the `retrySubscribe` operator. I'll describe implementation details of it in the another post.
 
-Now let's go back to our presenter. As you probably noticed, presenter has an access to view, routing and interactor in a whole class scope. Moreover, it automagically cast it to the appropriate interface defined in a contract. Note that I always use the optional view call - it's just easier to do it in a no-brainer way. As we often use thread switching in our streams, view could get detached from the presenter in the meanwhile. Don't let Android Studio fool you using "unnecessary safe call" message! On the other hand Interactor and Routing are tightly coupled with presenter so there is no need to use safe calls on them in any situation.
+Now let's go back to our presenter. As you probably noticed, presenter has an access to view, routing and interactor in a whole class scope. Moreover, it automagically cast them to appropriate interfaces defined in contract. Note that I always use the optional view call - it's just easier to do it in a no-brainer way. As we often use thread switching in our streams, view can get detached from the presenter in the meanwhile. Don't let Android Studio fool you using "unnecessary safe call" message! On the other hand, Interactor and Routing are tightly coupled with presenter, so there is no need to use safe calls on them in any situation.
 
-The other fancy thing there is that we haven't even touched the another components but we can safely implement whole presenter! Using Moviper you can pararellize the work on the single module at whole team. Making work more focused on single screen makes you send new builds to QA faster, so there is no bottlenecking on the very end of the scrum sprint!
+The other fancy thing there is that we haven't even touched the another components but we can safely implement whole presenter! Using Moviper you can parallelize the work on the single module at whole team. Making work more focused on single screen makes you send new builds to QA faster, so there is no bottlenecking on the very end of the scrum sprint!
 
 On the example you can see that each stream is wrapped in a `addSubscription` call. It's one of the built-in Moviper methods that allows you forget about the need of unsubscribing your streams to avoid memory leaks. Just wrap all of your never completing streams using `addSubscription` and that's all! Your streams will be unsubscribed at presenter detach from View. If you have some objects in your presenter that need some special finishing, do it overriding `onDetach(Boolean retainInstance)` method (and once again, don't forget to call super!).
 
 But remember, not every call of it means that presenter will be destroyed - if a `retainInstance` argument is `true` it means that attached view is destroying because of the Android orientation change, and presenter will be retained and reattached to the new view, so you don't have to nuke your delegates (at least these which don't use the view reference).
 
-The thing worth emphasizing here is that your presenter won't be parceled and recreated or something like that, it will be the same, exact presenter that have been attached to the view before orientation change. Moreover, all of the background work that the presenter performs (and all of its children, with Routing and Interactor as a most notable example of them) will be delivered to the eventual view if the orientation change happens in the meanwhile if you follow one rule of the thumb - *always communicate with the view using the main thread* (http://hannesdorfmann.com/mosby/summary/ - *Can the Presenter and its view be out of sync during a screen orientation change?* paragraph).
+The thing worth emphasizing here is that your presenter won't be parceled and recreated or something like that. After rotating the screen, it will be the same exact presenter that have been attached to the view before orientation change. Moreover, all of the background work that the presenter performs (and all of its children, with Routing and Interactor as a most notable examples of them) will be delivered to the eventual view if the orientation change happens in the meanwhile if only you follow the one rule of the thumb - *always communicate with the view using the main thread* ([as it is in Mosby library](http://hannesdorfmann.com/mosby/summary/) - *Can the Presenter and its view be out of sync during a screen orientation change?* paragraph. Moviper bases on Mosby so the linked rule refers to Moviper also).
 
-Even if view will need to perform some hard work on the background thread, using the diffUtil for example - always call the view on the main thread and delegate the work to another thread in the view itself. For more info about the presenter and view lifecycle and behavior I recommend you reading the Mosby  http://hannesdorfmann.com/mosby/ docs and blog as the Moviper is built on top of this library, so it inherits the behavior of view-presenter relations.
+Even if view will need to perform some hard work on the background thread, using the diffUtil for example - always call the view on the main thread and delegate the work to another thread in the view itself. For more info about the presenter and view lifecycle and behavior I recommend you reading the [Mosby docs and blog](https://kotlinlang.org/docs/tutorials/kotlin-android.html) as the Moviper is built on top of this library, so it inherits the behavior of view-presenter relations.
 
-Ok, so we have discussed the Moviper behaviour in this context, so now let's focus on our sample app logic:
+Ok, so we have discussed the Moviper behavior in this context, so now let's focus on our sample app logic:
 
 ```kotlin
 addSubscription(
@@ -292,15 +294,15 @@ So let's see what happens here:
 2. we take the stream from `view` - see the following line,
 3. call on the `loginClicks` stream provided by our view that is defined in our contract,
 4. we show the loading on the view to notify the user about the processing of the request,
-5. delegation of the work to the background thread from io scheduler as it will be network based,
+5. delegation of the work to the IO scheduler background thread as it will be network based,
 6. delegation of the data work to the interactor using a method that is defined in our contract,
-7. we switch the thread back to the mainThread as in the methods below we will touch the UI,
+7. we switch the thread back to the mainThread as we will touch the UI in the methods below,
 8. we call our special operator that will allow us to retry the calls in case of failure,
 9. start of ReactiveX `onNext` lambda method,
 10. if the interactor performed our request succesfully we delegate the screen switch action to the routing using a method that is defined in our contract,
-11. same as above but we finish login activity after login,
+11. same as above - we finish login activity after login,
 12. end of ReactiveX `onNext` lambda method,
-13. ReactiveX `onError` method - if the request has failed we show the error to the user.
+13. ReactiveX `onError` method - if the request has failed we show an error to the user.
 
 The second stream based on `view?.helpClicks` has the similar philosophy, so I won't cover it step by step as it's pretty straightforward in the context of the previous stream.
 
@@ -323,12 +325,12 @@ class LoginRouting : BaseRxRouting<Activity>(), LoginContract.Routing {
 
 To start these screens I will use starters here. Starter is a simple class that is used to, well, start the screens. But why to use them instead of just starting the activity here? There are two main reasons to do it:
 
-1. We need to allow an user to go to two screens from this module (a profile screen and a help screen). As we create Viper modules in our app we will need to add six files (contract, Presenter, Interactor, View, Routing, layout) for each of screens and insert appropriate Activity declaration lines to AndroidManifest. Adding 12 files not related with screen we work at won't be a really good practice.
+1. From the screen we create, the login screen, a user is able to move to help screen and profile screen (after login). That's two screens. As we create Viper modules in our app, if we wanted to create whole modules right now, we would need to add six files (contract, Presenter, Interactor, View, Routing, layout) for each of screens and insert appropriate Activity declaration lines to AndroidManifest. Adding 12 files not related with screen we work at won't be a really good practice.
 2. If we want to TDD our screen (and we do, I will cover it on the next blog post) it's much easier to mock the context and check if appropriate starters were called than test if appropriate activities were started. Moreover, it's much quicker to do it using mocked context than to use Robolectric to test that activities were started.
 
 So let's create starters for mentioned screens and place them in correct packages:
 
-{% include clickable_figure image_path="/assets/images/StartersLocation.png" alt="this is a placeholder image" caption="I put the starters for the separate packages in the same way I did with a whole Login Viper module." %}
+{% include clickable_figure image_path="/assets/images/StartersLocation.png" alt="starters location screenshot" caption="I put the starters for the separate packages in the same way I did with a whole Login Viper module." %}
 
 Ok, so now let's use our starters in routing:
 
