@@ -1,7 +1,7 @@
 ---
 layout: archive
 author_profile: true
-permalink: /archive/
+permalink: /blog/
 ---
 
 {% include posts.html %}

@@ -38,12 +38,12 @@ After a few pretty long hours you laid back in the moment of enjoyment of the gr
 
 *What shall I do now?* Some senior developer looked at you with indulgence and advised warmly: *"Delegate your responsibilities from presenter"*. Do what? Delegate what? After a quick research you instantly cached up, but then you got stuck again. *"I still don't know what I shall delegate! How do I know if I should delegate every method, bunch of them, or maybe shall I just split the presenter to the half? I'm just a junior developer, I don't have a such intuition!"*"
 
-Let's skip the later part for now. Now think about that other situation, the situation in which you have found a bug in your app. You found it, so you fixed it. The problem is that when you have fixed it, the two new nasty regressions came up in your project. After fixing one of them, another two showed up to accompany the one that have left from the first wave. It was like fighting a hydra. Very quickly you found yourself banging your head against the wall trying to get a grip on the project again.
+Let's skip the later part for now. Instead, think about that other situation, the situation in which you have found a bug in your app. You found it, so you fixed it. The problem is that when you have fixed it, the two new nasty regressions came up in your project. After fixing one of them, another two showed up to accompany the one that have left from the first wave. It was like fighting a hydra. Very quickly you found yourself banging your head against the wall trying to get a grip on the project again.
 
 That sad scenario lead you to discover testing and [Test Driven Development][tdd]. You quickly went through all of the tutorials of TDD-ing a simple calculator app, instantly grasped the basics and rolled up your sleeves to reimplement your app in the proper way. It rapidly turned out that it's kinda like tutorial of drawing an owl:
 
 
-{% include clickable_figure image_path="/assets/images/HowToDrawAnOwl.jpg" alt="this is a placeholder image" caption="That's how the first approach to the testing looks like!" %}
+{% include clickable_figure image_path="/assets/images/HowToDrawAnOwl.jpg" alt="Funny, two step, owl drawing instruction." caption="That's how the first approach to the testing looks like!" %}
 *Source: http://forimpact.org/for-impact-ideas/how-to-draw-an-owl/*{: style="text-align: center; display: block; font-size: 60%;"}
 
 You quickly realized that you have no idea how to test your system. *"What am I supposed to test? I click this button in app and load my data in Activity / View Controller, there is nothing to test really!"*
@@ -55,7 +55,7 @@ Here comes the VIPER architecture — a reveal for these problems. It proposes a
 Each VIPER module consists of following sub-modules:
 0. **Contract**: defines the way sub-modules communicate,
 1. **View**: user interface,
-2. **Presenter**: delegating appropriate tasks to Router and Interactor,
+2. **Presenter**: delegating appropriate tasks to Router and Interactor, deciding what and how to display,
 3. **Router / Routing**: system framework interactions - mostly app routing (switching views),
 4. **Interactor**: data-related business logic,
 5. **Entity** (-ies): objects representing your data,
@@ -73,15 +73,17 @@ Having all of the modules and sub-modules decoupled and independent makes them e
 
 Moreover, it introduces a huge acceleration to the enterprise mobile development process as a whole team can work on the one screen at once and that leads to increase frequency of a dev - QA iterations during the sprint. That powerfully eases an agile approach - customer can review screens earlier. It also soothes a dev - QA edge by keeping QA busy on the reasonable level, it's not like in an „old” approach where bored QA takes care about other projects on the beginning of a sprint, and when a whole bunch of views is ready at the end of a sprint you have to wait for QA to finish another projects, and then you DDoS them using all the views you have developed.
 
-Furthermore, it makes multi-platform development much easier as Android and iOS can share Contracts, tests, Rx streams and general logic of internals, if you manage to maintain uniform architecture across platforms. In addition, if you write your Android code in [Kotlin][kotlin], you can port the presenter, tests and some utils between platforms with very little effort, as Kotlin and Swift have very similar grammar. Android and iOS parts of the team can do different modules at once, and after finishing that they can switch and base their code on already done components of the another platform. It also enhances bugs detection as if both platforms share the same logic, if a bug is detected in one platform, it can be fixed on both.
+Furthermore, it makes multi-platform development much easier as Android and iOS can share Contracts, tests, Rx streams and general logic of internals, if you manage to maintain uniform architecture across platforms. In addition, if you write your Android code in [Kotlin][kotlin], you can port the presenter, tests and some utils between platforms with very little effort, as Kotlin and Swift have a very similar grammar. Android and iOS parts of the team can do different modules at once, and after finishing that they can switch and base their coding on already done components of the another platform. It also enhances bugs detection as if both platforms share the same logic, if a bug is detected in one platform, it can be fixed on both.
 
  Looking at all of the paragraphs above - well, that's a pretty bunch of advantages!
 
 # Doubt
 
-Yes, yes, I can hear you yelling *"But my view X is so simple, I don't care about creating six components for that! It's over-engineering! There's even nothing to test!"*. Now think about that app you did last time. You have pretty similar, very simple view X in there, but now it has grown to the enormous size. Have you managed to refactor it? No? Well. Is there something to test right now? And is it tested out? Well... Now you see.
+Yes, yes, I can hear you yelling *"But my view X is so simple, I don't care about creating six components for that! It's over-engineering! There's even nothing to test!"*. Now think about that app you did last time. You had pretty similar, very simple view X in there, but now it has grown to the enormous size. Have you managed to refactor it? No? Well. Is there something to test right now? And is it tested out? Well... Now you see.
 
-Moreover, I don't think that having to create some components is an argument if we can delegate this dirty work to some scripts or plugins like [Moviper Templates Generator][moviper-generator] or [Generamba][generamba]. Of course there is also some entry threshold but it usually takes only a few days to feel really confident in this architecture. And the gain of using VIPER grows with every line of code that adds a pinch of a complexity to your codebase. Of course there is also some boilerplate added to define all of the essential sub-modules, but I don't think that it's a remarkable downside in the face of the upsides of this approach.
+Moreover, I don't think that having to create some components really is a downside if we can delegate this dirty work to some scripts or plugins like [Moviper Templates Generator][moviper-generator] or [Generamba][generamba].
+
+Of course there is also some entry threshold but it usually takes only a few days to feel really confident in this architecture. And the gain of using VIPER grows with every line of code that adds a pinch of a complexity to your codebase. Of course there is also some boilerplate added to define all of the essential sub-modules, but I don't think that it's a remarkable downside in the face of the upsides of this approach.
 
 # Sum up
 
@@ -105,7 +107,7 @@ For me it looks like upsides of this architecture weigh much more than downsides
 
 # But wait...
 
-All of the iOS developers are happy now and they've just started reading various articles about iOS VIPER implementation, as there are [plenty of them][googleiOSViper]. You, iOS fellas, can stop reading right now as you have lots articles to read about that (but remember about the fact that work at open-sourcing Moviper for iOS is in progress ;) ). On the other hand, Android developers got somehow confused, as searching for the ["Android VIPER architecture"][googleAndroidViper] gives some appropriate results, but there isn't even a full page of Google results. Let's review what do we have here:
+All of the iOS developers are happy now and they've just started reading various articles about iOS VIPER implementation, as there are [plenty of them][googleiOSViper]. You, iOS fellas, can stop reading right now as you have lots articles to read about that (but remember about the fact that work at open-sourcing Moviper for iOS is in progress ;) ). On the other hand, Android developers got somehow confused, as searching for the ["Android VIPER architecture"][googleAndroidViper] gives some appropriate results, but there isn't even a full page of it. Let's review what do we have here:
 
 * Lyubomir Ganev [series of posts](http://luboganev.github.io/blog/clean-architecture-pt1/) and a [related sample](https://github.com/luboganev/Carbrands)
 * Richa Khandelwal [post on a Realm blog](https://realm.io/news/360andev-richa-khandelwal-effective-android-architecture-patterns-java/) and a [related sample](https://github.com/richk/CourseraDemoApp)

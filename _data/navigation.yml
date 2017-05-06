@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Blog"
-    url: /archive
+    url: /blog
   - title: "About"
     url: /about/
   - title: 'Moviper'
