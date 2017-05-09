@@ -142,7 +142,7 @@ For Moviper I have worked out the following, slightly shifted responsibility fra
 
 - View: displays what the Presenter wants and relays user input back to the Presenter. (exactly the same as above)
 - Interactor: contains the data read/write and preprocessing logic - all of the api and db calls go here.
-- Presenter: contains the business logic: reacts to user input, translating it to the interactor and routing calls, decides what to display on the view, validates the data in the business usecases sense (ie username can't be empty).
+- Presenter: contains the business logic - reacts to user input, translating it to the interactor and routing calls, decides what to display on the view, validates the data in the business usecases sense (ie username can't be empty).
 - Entity: they are data objects that are used in the app business logic, independent from the data handling and view implementation.
 - Routing: contains all system-related logic. You can alternatively call it "System". It manages navigation, screen transitions, notifications scheduling, etc.
 
@@ -191,7 +191,7 @@ Let's put them to the `data` package:
 
 {% include clickable_figure image_path="/assets/images/DataClassesLocation.png" alt="data package screenshot" caption="Let's put our nice data classes to the separate package." %}
 
-Going back to our contract - as you can see, presenter has no interface here. Welcome to the passive word from the chosen Moviper flavor. Passive means that View has no idea about Presenter being attached to it. Actually you can access presenter from view using `presenter` property / `getPresenter()` method, but in a passive flavor you will get just plain ViperPresenter, so you won't have an access to your actual presenter methods. View communicates with presenter using event streams exposed through view interface to which presenter subscribes when attaching to the view.
+Going back to our contract - as you can see, presenter has no interface here. Welcome to the passive word from the chosen Moviper flavor. Passive means that View has no idea about Presenter being attached to it. Actually you can access presenter from view using `presenter` property or `getPresenter()` method, but in a passive flavor you will get just plain ViperPresenter, so you won't have an access to your actual presenter methods. View communicates with presenter using event streams exposed through view interface to which presenter subscribes when attaching to the view.
 
 Interactor and Routing are, let's say, Presenters "tools", presenter delegates work to them and receives calls results using Observables. That said, there is no component that calls Presenters methods, so there is no need to make it implements any interface. This allows us to create multiple presenters (where each has it's own routing and interactor) for one view and switch them seamlessly! We'll go back to this feature later.
 
@@ -255,7 +255,9 @@ class LoginPresenter :
 }
 ```
 
-As you probably noticed, presenter has an access to view, routing and interactor in a whole class scope. Moreover, it automagically cast them to appropriate interfaces defined in contract. Note that I always use the optional view call - it's just easier to do it in a no-brainer way. As we often use thread switching in our streams, view can get detached from the presenter in the meanwhile. Don't let Android Studio fool you using "unnecessary safe call" message! On the other hand, Interactor and Routing are tightly coupled with presenter, so there is no need to use safe calls on them in any situation.
+As you probably noticed, presenter has an access to view, routing and interactor in a whole class scope. Moreover, it automagically cast them to appropriate interfaces defined in contract.
+
+Note that I always use the optional view call - it's just easier to do it in a no-brainer way. As we often use thread switching in our streams, view can get detached from the presenter in the meanwhile. Don't let Android Studio fool you using "unnecessary safe call" message! On the other hand, Interactor and Routing are tightly coupled with presenter, so there is no need to use safe calls on them in any situation.
 
 Now let's focus on our app logic. Don't worry if you spot some methods that are new for you, they're described later in this post. Here's the code of our first stream:
 
@@ -347,7 +349,9 @@ class HelpStarter {
 }
 ```
 
-As you can see, I have made them fields of our Routing. You will get the great benefit of it in the next post, while we'll redo the whole process using TDD. For now just trust me please :wink:. Take note of a `relatedContext` nullcheck using cool Kotlin [safe call](https://kotlinlang.org/docs/reference/null-safety.html#safe-calls) and [let function](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html). In Routing it's important to always check if the mentioned context is attached, because if Presenter calls a routing on the non-main thread, it's possible that related context provider, ie. Activity already got destroyed, so it could lead to crash.
+As you can see, I have made them fields of our Routing. You will get the great benefit of it in the next post, while we'll redo the whole process using TDD. For now just trust me please :wink:. Take note of a `relatedContext` nullcheck using cool Kotlin [safe call](https://kotlinlang.org/docs/reference/null-safety.html#safe-calls) and [let function](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/let.html).
+
+In Routing it's important to always check if the mentioned context is attached, because if Presenter calls a routing on the non-main thread, it's possible that related context provider, ie. Activity already got destroyed, so it could lead to crash.
 
 Ok, so now we have implemented the routing despite that we don't have any other Viper screen module yet, nice!
 
@@ -489,7 +493,7 @@ class HelpStarter {
 }
 ```
 
-What are the changes in the Login Viper code? None. The only difference is that our help button started to work. In Login Viper, what will be a overhead of an existence of a help screen in our code if we decide to disable the help button using some remote config? Almost none (a one-liner HelpStarter class object created in Routing).
+What are the changes in the Login Viper code? None. The only difference is that our help button just started to work. In Login Viper, what will be a overhead of an existence of a help screen in our code if we decide to disable the help button using some remote config? Almost none (a one-liner HelpStarter class object created in Routing).
 
 Moreover, we could remotely swap the starter to another one existing in our code to remotely modify the behavior of the app. Viper allows a very high modularity of apps in the level that allows to reconfigure the app on the fly. It's very helpful in handling special events (ie. special Christmas modules that can be activated and deactivated without an app update) or some fatal scenarios in which some module malfunctions - we can always disable it remotely to avoid further crashes during the hotfixing. More detailed article about this feature coming soon.
 
@@ -530,9 +534,11 @@ And well, it looks like we're finished our base example of Moviper-rx with Passi
 
 Moreover, if you don't like the passive view concept you can choose the flavor in which view is not passive and it calls presenters methods, or you can even pick the non-rx Moviper version. Feel free to choose your favorite! (but take note that I consider the flavor described in this post as a most boilerplate-reducing, readable, scalable and featureful) Just check out [the repo](https://github.com/mkoslacz/Moviper).
 
+But it's not the end yet. As you probably noticed, in this example I used some methods probably unknown to you and you may be wondering how our app will behave in edge cases. Don't worry, just read on!
+
 # Implementation & behavior details
 
-For simplicity I have skipped some more detailed descriptions of utils that I used in Presenter. Let's go back there and be more meticulous about them.
+For simplicity I have skipped some more detailed descriptions of utils I used, behavior of our app, and rules to follow when using Moviper. Let's go back there and be more meticulous about them.
 
 ## `retrySubscribe` operator
 
@@ -555,17 +561,17 @@ On the example you can see that each stream is wrapped in a `addSubscription` ca
 
 ## Presenter lifecycle & retaining
 
-But remember, not every call of `onDetach` means that presenter will be destroyed - if a `retainInstance` argument is `true` it means that attached view is destroying because of the Android orientation change, and presenter will be retained and reattached to the new view, so you don't have to nuke your delegates (at least these which don't use the view reference).
+Using `onDetach` is pretty simple, but remember, not every call of itmeans that presenter will be destroyed - if a `retainInstance` argument is `true` it means that attached view is destroying because of the Android orientation change, and presenter will be retained and reattached to the new view, so you don't have to nuke your delegates (at least these which don't use the view reference).
 
 The thing worth emphasizing here is that your presenter won't be parceled and recreated or something like that. After rotating the screen, it will be the same exact presenter that have been attached to the view before orientation change. Moreover, all of the background work that the presenter performs (and all of its children, with Routing and Interactor as a most notable examples of them) will be delivered to the eventual view if the orientation change happens in the meanwhile if only you follow the one rule of the thumb - *always communicate with the view using the main thread* ([as it is in Mosby library](http://hannesdorfmann.com/mosby/summary/) - *Can the Presenter and its view be out of sync during a screen orientation change?* paragraph. Moviper bases on Mosby so the linked rule refers to Moviper also).
 
 ## Presenter-View communication thread
 
-As I said above: *always communicate with the view using the main thread*. Even if view will need to perform some hard work on the background thread, using the diffUtil for example - always call the view on the main thread and delegate the work to another thread in the view itself. For more info about the presenter and view lifecycle and behavior I recommend you reading the [Mosby docs and blog](https://kotlinlang.org/docs/tutorials/kotlin-android.html) as the Moviper is built on top of this library, so it inherits the behavior of view-presenter relations.
+As I said above: *always communicate with the view using the main thread*. Even if view will need to perform some hard work on the background thread, using the diffUtil for example - always call the view on the main thread and delegate the work to another thread in the view itself. It will allow your sub-modules always be synchronized. For more info about the presenter and view lifecycle and behavior I recommend you reading the [Mosby docs and blog](https://kotlinlang.org/docs/tutorials/kotlin-android.html) as the Moviper is built on top of this library, so it inherits the behavior of view-presenter relations.
 
-## Work parallelization
+## Independent implementation
 
-The other fancy thing there is that we haven't even touched the another components but we can safely implement whole presenter! Using Moviper you can parallelize the work on the single module at whole team. Making work more focused on single screen makes you send new builds to QA faster, so there is no bottlenecking on the very end of the scrum sprint!
+The other fancy thing there is that despite that we haven't even touched the another components we could safely implement whole presenter! (and then routing etc.) Using Moviper you can parallelize the work on the single module at whole team. Making work more focused on single screen makes you send new builds to QA faster, so there is no bottlenecking on the very end of the scrum sprint!
 
 ## Flavor design
 
@@ -579,7 +585,7 @@ I guess that now you get the naming of this Moviper-rx with Autoinject Passive V
 
 # Possibilities
 
-As you can see, our app is really neat and clean. The clean design that makes our apps maintainable, but it also comes in handy in our production environment where we attach multiple presenters to our views using Moviper [ViperPresentersList](https://github.com/mkoslacz/Moviper#attaching-multiple-presenters-to-the-view). In Movibe / Wirtualna Polska we have a separate app logic presenter, analytics presenter, advertising presenter, where every presenter has its own routing and interactor crafted appropriately to the role of the given presenter. The fact that there are many presenters is transparent for the view. It allows us to dynamically attach or detach presenters to ie turn off ads for premium users.
+As you can see, our app is really neat and clean. The clean design that makes our apps maintainable, but it also comes in handy in our production environment where we attach multiple presenters to our views using Moviper [ViperPresentersList](https://github.com/mkoslacz/Moviper#attaching-multiple-presenters-to-the-view). In [Movibe](https://movibe.it/)/[Wirtualna Polska](https://onas.wp.pl/) we have a separate business logic presenter, analytics presenter, advertising presenter, etc., where every presenter has its own routing and interactor crafted appropriately to the role of the given presenter. The fact that there are many presenters is transparent for the view. It allows us to dynamically attach or detach presenters to ie turn off ads for premium users.
 
 Moreover, if your presenter has grown too much and for some reason you can't split your view to smaller chunks that corresponds with separate use-cases you can create the presenter for each use-case and attach the whole bunch of them to the single view. It allows us to keep our classes small, and smaller (in most cases) means more readable, more maintainable, more testable and more awesome. And still - with no changes in View!
 
@@ -587,9 +593,11 @@ It also works for defining multiple behaviors for one view. We use it to create 
 
 The idea works in both ways - we also swap the views using the same presenter and whole app logic, for example we do so when we implement the Android TV version of our apps using the goodies from Leanback Library.
 
+To more general overview of VIPER features I recommend you reading my previous article.
+
 # Sum up
 
-To sum up let's take a look at our code:
+To sum up let's take a look at our code.
 - It's highly modular in way that allows us remotely enable, disable and swap modules and develop multiple screens and modules at once without conflicts.
 - The contract allows a dev to take a quick overview how the whole module works while each submodule is so simple and beautiful that it's understandable at a glance.
 - The view is passive, so we can swap the presenters, split the presenter to multiple ones if it grows too much, or attach additional presenters for optional features.

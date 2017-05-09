@@ -24,7 +24,7 @@ read_time: true
 {% include toc %}
 
 ## **TL;DR**
-**VIPER architecture allows you to easily TDD your app, keep the code clean, share modules, and distribute the work. It speeds up a general development process by increasing frequency of sending the new functionalities to QA and Product Owner. It speeds up a multi-platform development as Android and iOS can share the general logic. It also makes you more agile allowing changing only specific parts of an app at any moment. For each screen it introduces five or six modules, but don't worry - there are tools to generate these for you. It has some entry threshold, but it can be overcame in a few days. There are plenty iOS articles and examples to learn from, and a lil bit of Android ones, but I will try to change this deficiency in this blog, using [Moviper][moviper] VIPER architecture library for Android.**
+**VIPER architecture allows you to easily TDD your app, keep the code clean, share modules, and distribute the work. It enhances a general development process by increasing frequency of sending the new functionalities to QA and Product Owner. It speeds up a multi-platform development as Android and iOS can share the general logic. It also makes you more agile allowing changing only specific parts of an app at any moment. For each screen it introduces five or six modules, but don't worry - there are tools to generate these for you. It has some entry threshold, but it can be overcame in a few days. There are plenty iOS articles and examples to learn from, and a lil bit of Android ones, but I will try to change this deficiency in this blog, using [Moviper][moviper] - VIPER architecture library for Android.**
 
 # Introduction
 
@@ -34,11 +34,11 @@ Every developer in his path encounters pretty similar obstacles while trying to 
 
 ## How to split?
 
-Fellow mobile developer, at the very beginning, most probably you implemented your first hello world app, and then started to explore the depths of your platform. Very quickly you have realized that your Activities / View Controllers have grown to the enormous size, making you flea to the Google to find some solution for that. Then you found it, the glorious MVP/MVC/MVVM/MV-something architecture that claimed it will resolve your problem for more than sure. So you grabbed your coffee, rushed the keyboard and rewrote your app in the brand new, proper way.
+Fellow mobile developer, at the very beginning, most probably you implemented your first hello world app, and then started to explore the depths of your platform. Very quickly you have realized that your Activities/View Controllers have grown to the enormous size, making you flea to the Google to find some solution for that. Then you found it, the glorious MVP/MVC/MVVM/MV-something architecture that claimed it will resolve your problem for more than sure. So you grabbed your coffee, rushed the keyboard and rewrote your app in the brand new, proper way.
 
-After a few pretty long hours you laid back in the moment of enjoyment of the great piece of software you have just crafted. But then you have frozen in horror. Your Activities / View Controllers are pretty slim right now, but wait, we have another god-class, the Controller/Presenter/ViewModel! Oh noes, they are responsible of handling the routing through the app, data management, interacting with system framework and many other things! That nasty classes for sure do not fulfill the idea of the [Single Responsibility Principle][srp].
+After a few pretty long hours you laid back in the moment of enjoyment of the great piece of software you have just crafted. But then you have frozen in horror. Your Activities/View Controllers are pretty slim right now, but wait, we have another god-class, the Controller/Presenter/ViewModel! Oh noes, they are responsible of handling the routing through the app, data management, interacting with system framework and many other things! That nasty classes for sure do not fulfill the idea of the [Single Responsibility Principle][srp].
 
-*What shall I do now?* Some senior developer looked at you with indulgence and advised warmly: *"Delegate your responsibilities from presenter"*. Do what? Delegate what? After a quick research you instantly cached up, but then you got stuck again. *"I still don't know what I shall delegate! How do I know if I should delegate every method, bunch of them, or maybe shall I just split the presenter to the half? I'm just a junior developer, I don't have a such intuition!"*"
+*What shall I do now?* Some senior developer looked at you with indulgence and advised warmly: *Delegate your responsibilities from presenter*. Do what? Delegate what? After a quick research you instantly cached up, but then you got stuck again. *I still don't know what I shall delegate! How do I know if I should delegate every method, bunch of them, or maybe shall I just split the presenter to the half? I'm just a junior developer, I don't have a such intuition!*
 
 ## How to test?
 
@@ -46,11 +46,10 @@ Let's skip the later part for now. Instead, think about that other situation, th
 
 That sad scenario lead you to discover testing and [Test Driven Development][tdd]. You quickly went through all of the tutorials of TDD-ing a simple calculator app, instantly grasped the basics and rolled up your sleeves to reimplement your app in the proper way. It rapidly turned out that it's kinda like tutorial of drawing an owl:
 
-
 {% include clickable_figure image_path="/assets/images/HowToDrawAnOwl.jpg" alt="Funny, two step, owl drawing instruction." caption="That's how the first approach to the testing looks like!" %}
 *Source: http://forimpact.org/for-impact-ideas/how-to-draw-an-owl/*{: style="text-align: center; display: block; font-size: 60%;"}
 
-You quickly realized that you have no idea how to test your system. *"What am I supposed to test? I click this button in app and load my data in Activity / View Controller, there is nothing to test really!"*
+You quickly realized that you have no idea how to test your system. *What am I supposed to test? I click this button in app and load my data in Activity/View Controller, there is nothing to test really!*
 
 # Reveal - VIPER architecture
 
@@ -60,18 +59,16 @@ Each VIPER module consists of following sub-modules:
 0. **Contract**: defines the way sub-modules communicate,
 1. **View**: user interface,
 2. **Presenter**: delegating appropriate tasks to Router and Interactor, deciding what and how to display,
-3. **Router / Routing**: system framework interactions - mostly app routing (switching views),
+3. **Router/Routing**: system framework interactions - mostly app routing (switching views),
 4. **Interactor**: data-related business logic,
 5. **Entity** (-ies): objects representing your data,
-6. **Builder / Starter**: starts a whole VIPER module.
+6. **Builder/Starter**: starts a whole VIPER module.
 
 {% include clickable_figure image_path="/assets/images/ViperDiagram.png" alt="this is a placeholder image" caption="That's the general look of the Viper architecture." %}
 
-I won't cover each of them in this post as it's rather a material for an another publication. I will discuss it in the next article, but if you are really curious right now, you can read [the original objc VIPER article][objc-viper] (I guess).
+I won't cover each of them in this post as it's rather a material for an another publication. I will discuss it in the next article, but if you are really curious right now, you can read [the original objc VIPER article][objc-viper] (I guess). Instead, for now let's focus on the general features of VIPER.
 
 # Main VIPER features
-
-Instead, for now let's focus on the general features of VIPER.
 
 ## Modularity & interchangeablility
 
@@ -97,7 +94,7 @@ Looking at all of the paragraphs above - well, that's a pretty bunch of advantag
 
 # Doubt
 
-Yes, yes, I can hear you yelling *"But my view X is so simple, I don't care about creating six components for that! It's over-engineering! There's even nothing to test!"*. Now think about that app you did last time. You had pretty similar, very simple view X in there, but now it has grown to the enormous size. Have you managed to refactor it? No? Well. Is there something to test right now? And is it tested out? Well... Now you see.
+Yes, yes, I can hear you yelling *But my view X is so simple, I don't care about creating six components for that! It's over-engineering! There's even nothing to test!*. Now think about that app you did last time. You had pretty similar, very simple view X in there, but now it has grown to the enormous size. Have you managed to refactor it? No? Well. Is there something to test right now? And is it tested out? Well... Now you see.
 
 Moreover, I don't think that having to create some components really is a downside if we can delegate this dirty work to some scripts or plugins like [Moviper Templates Generator][moviper-generator] or [Generamba][generamba].
 
@@ -105,8 +102,7 @@ Of course there is also some entry threshold but it usually takes only a few day
 
 # Sum up
 
-Let's sum up the upsides of VIPER
-
+Let's sum up the upsides of VIPER:
 - clean code,
 - easy TDD,
 - reusable modules and sub-modules,
@@ -116,7 +112,6 @@ Let's sum up the upsides of VIPER
 - enhanced agility.
 
 And check out the downsides as well:
-
 - needs additional work to repeatedly create all of the modules **[BUSTED]**,
 - some entry threshold [to beat in few days],
 - some boilerplate added [but I personally think that it weighs nothing in comparison to all of the upsides].
@@ -129,19 +124,19 @@ All of the iOS developers are happy now and they've just started reading various
 
 On the other hand, Android developers got somehow confused, as searching for the ["Android VIPER architecture"][googleAndroidViper] gives some appropriate results, but there isn't even a full page of it. Let's review what do we have here:
 
-* Lyubomir Ganev [series of posts](http://luboganev.github.io/blog/clean-architecture-pt1/) and a [related sample](https://github.com/luboganev/Carbrands)
-* Richa Khandelwal [post on a Realm blog](https://realm.io/news/360andev-richa-khandelwal-effective-android-architecture-patterns-java/) and a [related sample](https://github.com/richk/CourseraDemoApp)
-*  Jiri Helmich [presentation](https://speakerdeck.com/helmisek/android-viper-architecture-implementation) and a [related sample](https://github.com/Helmisek/android-viper)
-* Dmytro Zaitsev [presentation](https://speakerdeck.com/dmitriyzaitsev/viper-sexy-architecting-or-mvp-on-steroids) and a [library he created](https://github.com/RxViper/RxViper)
+* Lyubomir Ganev [series of posts](http://luboganev.github.io/blog/clean-architecture-pt1/) and a [related sample](https://github.com/luboganev/Carbrands),
+* Richa Khandelwal [post on a Realm blog](https://realm.io/news/360andev-richa-khandelwal-effective-android-architecture-patterns-java/) and a [related sample](https://github.com/richk/CourseraDemoApp),
+*  Jiri Helmich [presentation](https://speakerdeck.com/helmisek/android-viper-architecture-implementation) and a [related sample](https://github.com/Helmisek/android-viper),
+* Dmytro Zaitsev [presentation](https://speakerdeck.com/dmitriyzaitsev/viper-sexy-architecting-or-mvp-on-steroids) and a [library he created](https://github.com/RxViper/RxViper),
 * and others that I probably couldn't find.
 
 So there are already some sources to learn from, and it's great if you liked and wanted to adopt one of these!
 
 Looking in the samples you can see that everyone has it's own interpretation of VIPER. As you can see, there isn't much about VIPER in the Android society, and this concept still isn't monolithic throughout developers so I feel like there is yet a lil bit of a room for me.
 
-Personally, in first two samples I somehow feel the lack of an architecture-enforced Router / Routing (correct me if I'm wrong of course). The following two ones, unfortunately, have only presentations with not much text that describes their usage what makes it not so easy to start using them.That's why I decided to publish some articles about general VIPER and [Moviper][moviper] usage and features.
+Personally, in first two samples I somehow feel the lack of an architecture-enforced Router/Routing (correct me if I'm wrong of course). The following two ones, unfortunately, have only presentations with not much text that describes their usage what makes it not so easy to start using them. That's why I decided to publish some articles about general VIPER and [Moviper][moviper] usage and features.
 
-I discovered mentioned articles after I have started developing my VIPER library, [Moviper][moviper], and I perceive the roles of the VIPER components in a slightly different perspective. You can check out [Moviper][moviper] to investigate the differences for now, in later posts I will describe my feeling of this architecture in details.
+I discovered mentioned articles after I have started developing my VIPER library - [Moviper][moviper] - and I perceive the roles of the VIPER components in a slightly different perspective. You can check out [Moviper][moviper] to investigate the differences for now, in later posts I will describe my feeling of this architecture in details.
 
 Stay tuned!
 
