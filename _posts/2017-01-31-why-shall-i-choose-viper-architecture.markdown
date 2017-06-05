@@ -24,7 +24,7 @@ read_time: true
 {% include toc %}
 
 ## **TL;DR**
-**VIPER architecture allows you to easily TDD your app, keep the code clean, share modules, and distribute the work. It enhances a general development process by increasing frequency of sending the new functionalities to QA and Product Owner. It speeds up a multi-platform development as Android and iOS can share the general logic. It also makes you more agile allowing changing only specific parts of an app at any moment. For each screen it introduces five or six modules, but don't worry - there are tools to generate these for you. It has some entry threshold, but it can be overcame in a few days. There are plenty iOS articles and examples to learn from, and a lil bit of Android ones, but I will try to change this deficiency in this blog, using [Moviper][moviper] - VIPER architecture library for Android.**
+**VIPER architecture allows you to easily TDD your app, keep the code clean, share modules, and distribute the work. It enhances a general development process by increasing frequency of sending the new functionalities to QA and Product Owner. It speeds up a multi-platform development as Android and iOS can share the general logic. It also makes you more agile allowing changing only specific parts of an app at any moment. For each screen it introduces five or six submodules, but don't worry - there are tools to generate these for you. It has some entry threshold, but it can be overcame in a few days. There are plenty iOS articles and examples to learn from, and a lil bit of Android ones, but I will try to change this deficiency in this blog, using [Moviper][moviper] - VIPER architecture library for Android.**
 
 # Introduction
 
