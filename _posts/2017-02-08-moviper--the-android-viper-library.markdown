@@ -571,51 +571,51 @@ As I said above: *always communicate with the view using the main thread*. Even 
 
 ## Independent implementation
 
-The other fancy thing there is that despite that we haven't even touched the another components we could safely implement whole presenter! (and then routing etc.) Using Moviper you can parallelize the work on the single module at whole team. Making work more focused on single screen makes you send new builds to QA faster, so there is no bottlenecking on the very end of the scrum sprint!
+The other fancy thing, even though we haven't even touched another components, is that we could safely implement entire presenter! (and then Routing etc.) Using Moviper you can parallelize the work on the single module among entire team. Making work more focused on a single screen makes you send new builds to QA faster, so there is no bottlenecking on the very end of the scrum sprint!
 
 ## Flavor design
 
-It's worth noting that in our app view is 100% passive - it means that view is not aware of kind of presenter attached to it nor methods it has. View doesn't call presenter in any way - it just provides the interface to which a presenter can attach itself to. It's the presenter that decides what to do, what to use and what not to use - view has no app logic inside. That's why the views flavor I use in this post has **Passive** in its name.
+It's worth noting that in our app View is 100% passive - it means that View is not aware of any kind of Presenter attached to it nor methods it has. View doesn't call Presenter in any way - it just provides the interface to which a Presenter can attach itself to. It's the Presenter that decides what to do, what to use and what not to use - View has no app logic inside. That's why the views flavor I use in this post has **Passive** in its name.
 
 View is passive, but it provides the Rx streams to which Presenter can attach itself to. That's why the Moviper flavor here has **Rx** in its name.
 
-If we had some special views that would need additional setup we could do it overriding `injectViews(android.view.View)`. There's no need to plug in to android lifecycle methods like `onCreate` etc., Moviper does the job done for us. That's why the views flavor I use in this post has **Autoinject** in its name.
+If we had some special views that would need additional setup we could do it overriding `injectViews(android.view.View)`. There's no need to plug in to android lifecycle methods like `onCreate` etc., Moviper does the job for us. That's why the views flavor I use in this post has **Autoinject** in its name.
 
 I guess that now you get the naming of this Moviper-rx with Autoinject Passive Views flavor :wink:.
 
 # Possibilities
 
-As you can see, our app is really neat and clean. The clean design that makes our apps maintainable, but it also comes in handy in our production environment where we attach multiple presenters to our views using Moviper [ViperPresentersList](https://github.com/mkoslacz/Moviper#attaching-multiple-presenters-to-the-view). In [Movibe](https://movibe.it/)/[Wirtualna Polska](https://onas.wp.pl/) we have a separate business logic presenter, analytics presenter, advertising presenter, etc., where every presenter has its own routing and interactor crafted appropriately to the role of the given presenter. The fact that there are many presenters is transparent for the view. It allows us to dynamically attach or detach presenters to ie turn off ads for premium users.
+As you can see, our app is really neat and clean. The clean design makes our apps maintainable, but it also comes in handy in our production environment where we attach multiple Presenters to our Views using Moviper [ViperPresentersList](https://github.com/mkoslacz/Moviper#attaching-multiple-presenters-to-the-view). In [Movibe](https://movibe.it/)/[Wirtualna Polska](https://onas.wp.pl/) we have a separate business logic presenter, analytics presenter, advertising presenter, etc., where every presenter has its own routing and interactor crafted appropriately to the role of a given presenter. The fact that there are many presenters is transparent for the view. It allows us to dynamically attach or detach presenters to, for example, turn off ads for premium users.
 
-Moreover, if your presenter has grown too much and for some reason you can't split your view to smaller chunks that corresponds with separate use-cases you can create the presenter for each use-case and attach the whole bunch of them to the single view. It allows us to keep our classes small, and smaller (in most cases) means more readable, more maintainable, more testable and more awesome. And still - with no changes in View!
+Moreover, if your presenter has grown too much and for some reason you can't split your view to smaller chunks that corresponds with separate use-cases, you can create the presenter for each use-case and attach the whole bunch of them to the single view. It allows us to keep our classes small, and in most cases, smaller means more readable, more maintainable, more testable and more awesome. And still - with no changes in the View!
 
-It also works for defining multiple behaviors for one view. We use it to create a one login screen and reuse it in the various login methods as we allow authorization using some external account credentials in our apps. Moviper provides a ready-to-use tool for it called [PresentersDispatcher](https://github.com/mkoslacz/Moviper#choosing-presenter-on-runtime).
+It also works for defining multiple behaviors for one view. We use it to create one login screen and reuse it in the various login methods as we allow authorization using some external account credentials in our apps. Moviper provides a ready-to-use tool for it called [PresentersDispatcher](https://github.com/mkoslacz/Moviper#choosing-presenter-on-runtime).
 
-The idea works in both ways - we also swap the views using the same presenter and whole app logic, for example we do so when we implement the Android TV version of our apps using the goodies from Leanback Library.
+The idea works in both ways - we also swap the views using the same presenter and whole app logic. For example, we do so when we implement the Android TV version of our apps using the goodies from Leanback Library.
 
-To more general overview of VIPER features I recommend you reading my previous article.
+For more general overview of VIPER features I recommend you reading my previous article.
 
 # Sum up
 
-To sum up let's take a look at our code.
-- It's highly modular in way that allows us remotely enable, disable and swap modules and develop multiple screens and modules at once without conflicts.
-- The contract allows a dev to take a quick overview how the whole module works while each submodule is so simple and beautiful that it's understandable at a glance.
-- The view is passive, so we can swap the presenters, split the presenter to multiple ones if it grows too much, or attach additional presenters for optional features.
-- We wrapped all of our logic in Rx streams that allows us to track the app execution path easily and thanks to it it's almost completely crash-safe (not to be confused with being error-safe).
+To sum up let's look at our code.
+- It's highly modular in a way that allows us to remotely enable, disable and swap modules and develop multiple screens and modules at once without conflicts.
+- The contract allows a dev to take a quick overview how the entire module works while each submodule is so simple and beautiful that it's understandable at a glance.
+- The view is passive, so we can swap the presenters, split the presenter to multiple ones if it grows too much or attach additional presenters for optional features.
+- We wrapped all our logic in Rx streams, which allows us to track the app execution path easily and making it almost completely crash-safe (not to be confused with being error-safe).
 
-And there is a [MoviperTemplatesGenerator](https://github.com/mkoslacz/MoviperTemplateGenerator) that did all of the relations binding, class creating and inheritance defining for us! That's pretty nice bunch of features!
+And there is a [MoviperTemplatesGenerator](https://github.com/mkoslacz/MoviperTemplateGenerator) that did all the relations binding, class creating and inheritance defining for us! That's a pretty nice bunch of features!
 
 In this post series I have skipped some less important code, but you can check out and run [the whole sample here](https://github.com/mkoslacz/MoviperShowcase).
 
-I encourage you to let me what you think about the architecture and the library itself. Feel free to contribute and report the issues.
+I encourage you to let me know what you think about the architecture and the library itself. Feel free to contribute and report the issues.
 
-And last but not least, stay tuned as I'll be posting more about the Moviper goodies:
+Last but not least, stay tuned as I'll be posting more about the Moviper goodies:
 - handling orientation changes with retaining background jobs state,
 - Inter-Presenter-Communication,
-- dispatching presenters on runtime (using the same view with different presetenters),
+- dispatching presenters on runtime (using the same view with different presenters),
 - using multiple presenters with one view,
 - creating the viper modules for RecyclerView cells,
-- reating Android Service based viper modules and standalone viper modules,
+- creating Android Service based viper modules and standalone viper modules,
 - passing Intent extras to presenters,
 - TDDing Viper modules,
 - using Moviper Test utils,
@@ -624,4 +624,4 @@ And last but not least, stay tuned as I'll be posting more about the Moviper goo
 
 And much more, stay tuned!
 
-*Great thanks to [Damian Chodorek](http://damianchodorek.com/) for reviewing this post.*
+*Great thanks to [Damian Chodorek](http://damianchodorek.com/) and Paweł Gawenda for reviewing this post.*
