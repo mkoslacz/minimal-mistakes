@@ -10,8 +10,6 @@ header:
   overlay_filter: 0.5
   caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
 excerpt: "A walkthrough that will let you start using Moviper."
-categories:
-  - Moviper
 tags:
   - Android
   - Architecture

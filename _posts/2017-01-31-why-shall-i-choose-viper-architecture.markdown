@@ -8,11 +8,6 @@ header:
   caption: "Photo credit: [**Dorin Vancea @ Unsplash**](https://unsplash.com/@dvancea)"
   teaser: /assets/images/image.jpg
 excerpt: "The essence of facts that shall convince you to start using Viper architecture."
-categories:
-  - iOS
-  - Android
-  - Architecture
-  - Moviper
 tags:
   - iOS
   - Android
