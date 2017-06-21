@@ -5,7 +5,7 @@ header:
   overlay_color: "#333"
   overlay_image: /assets/images/image.jpg
   overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
-  caption: "Photo credit: [**Aaron Burden @ Unsplash**](https://unsplash.com/@aaronburden)"
+  caption: "Photo credit: [**Dorin Vancea @ Unsplash**](https://unsplash.com/@dvancea)"
   teaser: /assets/images/image.jpg
 excerpt: "The essence of facts that shall convince you to start using Viper architecture."
 categories:
