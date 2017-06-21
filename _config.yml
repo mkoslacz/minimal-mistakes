@@ -7,20 +7,21 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "Site Title"
+title                    : "Mateusz Koślacz Homepage"
 title_separator          : "-"
-name                     : "Your Name"
+name                     : "Mateusz Koślacz"
 description              : "An amazing website."
-url                      : "//mateuszkoslacz.com"
-baseurl                  : "/minimal-mistakes"
+url                      : "//localhost:3000"
+baseurl                  : ""
 repository               : "mkoslacz/minimal-mistakes"
-teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+teaser                   : "/assets/images/default-teaser.jpg" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
+read_time                : true
 words_per_minute         : 200
 comments:
-  provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
+  provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
   disqus:
-    shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+    shortname            : "mateuszkoslacz" # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
@@ -70,18 +71,18 @@ social:
 
 # Analytics
 analytics:
-  provider               : false # false (default), "google", "google-universal", "custom"
+  provider               : "google" # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          :
+    tracking_id          : "UA-91302820-1"
 
 
 # Site Author
 author:
-  name             : "Your Name"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an amazing person."
-  location         : "Somewhere"
-  email            :
+  name             : "Mateusz Koślacz"
+  avatar           : "/assets/images/avatar.jpeg"
+  bio              : "A neat architecture lover, a clean code enthusiast, a novelties explorer."
+  location         : "Warsaw, Poland"
+  email            : "contact@mateuszkoslacz.com"
   uri              :
   bitbucket        :
   codepen          :
@@ -89,7 +90,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           :
+  github           : "mkoslacz"
   google_plus      :
   keybase          :
   instagram        :
@@ -241,6 +242,13 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true

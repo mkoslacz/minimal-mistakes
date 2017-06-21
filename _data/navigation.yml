@@ -1,9 +1,13 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  - title: "Blog"
+    url: /archive
+  - title: "About"
+    url: /about/
+  - title: 'Moviper'
+    url: https://github.com/mkoslacz/moviper
+  - title: '<i class="fa fa-github"></i>'
+    url: https://github.com/mkoslacz/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"

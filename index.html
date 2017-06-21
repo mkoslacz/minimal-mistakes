@@ -1,4 +1,35 @@
 ---
-layout: home
+layout: archive
+title: '<i class="fa fa-mobile fa-lg"></i>   Mateusz Koślacz Homepage'
 author_profile: true
+feature_row:
+  - image_path: /assets/images/blog2.jpeg
+    alt: "Blog"
+    title: "Blog"
+    excerpt: "See archive of my blog posts."
+    url: "/archive"
+    btn_label: "Read"
+  - image_path: /assets/images/contact2.jpg
+    alt: "Contact"
+    title: "Contact"
+    excerpt: "Contact me if you want."
+    url: "/about#contact"
+    btn_label: "Details"
+  - image_path: /assets/images/github.png
+    alt: "Moviper"
+    title: "Moviper"
+    excerpt: "See my VIPER library."
+    url: "https://github.com/mkoslacz/moviper"
+    btn_label: "GitHub"
+header:
+  overlay_color: "#5e616c"
+  overlay_image: /assets/images/as.png
+  overlay_filter: 0.7
+  caption:
+excerpt: 'My experiences with mobile development.'
 ---
+<!-- see static home pages -->
+
+{% include feature_row %}
+
+{% include paginated_posts.html %}

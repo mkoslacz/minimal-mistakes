@@ -112,6 +112,7 @@
 .page__hero {
   position: relative;
   margin-bottom: 2em;
+  background-attachment: fixed;
   @include clearfix;
   -webkit-animation: intro 0.3s both;
           animation: intro 0.3s both;
@@ -126,6 +127,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     -webkit-animation: intro 0.3s both;
             animation: intro 0.3s both;
     -webkit-animation-delay: 0.25s;

@@ -1,0 +1,15 @@
+---
+layout: archive
+author_profile: true
+permalink: /home_1
+---
+
+<!-- to make it homepage remove/rename index.html and assign this file to permalink: / -->
+
+
+{% include posts.html %}
+
+ <!-- how to rem-out liquid lines? they are parsed even if they are in html comment -->
+ <!--  Why doesnt this foreach work? BECAUSE THERE IS PROBLEM WITH PAGINATION -> now i use site.posts instead of paginator.posts in include -->
+ <!--  Probably there is a problem with pagination path in _config.yml-->
+ <!--  What's the difference between using .md and .html file in this case? and in general? (see another home file) -->
