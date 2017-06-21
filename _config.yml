@@ -11,10 +11,10 @@ title                    : "Mateusz Koślacz Homepage"
 title_separator          : "-"
 name                     : "Mateusz Koślacz"
 description              : "My page and blog about mobile development and programming, both for Android and iOS, especially in VIPER architecture using Moviper."
-url                      : "//localhost:3000"
+url                      : "//mateuszkoslacz.com"
 baseurl                  : ""
-repository               : "mkoslacz/minimal-mistakes"
-teaser                   : "/assets/images/default-teaser.jpg" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+repository               : "mkoslacz/mkoslacz.github.io"
+teaser                   : "/assets/images/image.jpg" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 read_time                : true
 words_per_minute         : 200
