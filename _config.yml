@@ -83,6 +83,7 @@ author:
   bio              : "A neat architecture lover, a clean code enthusiast, a novelties explorer."
   location         : "Warsaw, Poland"
   email            : "contact@mateuszkoslacz.com"
+  resume           : "https://github.com/mkoslacz/my-CV-resume/blob/master/mateusz_koslacz_cv.pdf"
   uri              :
   bitbucket        :
   codepen          :
@@ -95,7 +96,7 @@ author:
   keybase          :
   instagram        :
   lastfm           :
-  linkedin         :
+  linkedin         : "mateuszkoslacz"
   pinterest        :
   soundcloud       :
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
