@@ -6,6 +6,8 @@ main:
     url: /about/
   - title: 'Moviper'
     url: https://github.com/mkoslacz/moviper
+  - title: "Hire me!"
+    url: /hire-me/
   - title: '<i class="fa fa-github fa-lg"></i>'
     url: https://github.com/mkoslacz/
   # - title: "Sample Posts"
