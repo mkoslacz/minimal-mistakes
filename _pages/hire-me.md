@@ -9,6 +9,9 @@ header:
   overlay_filter: 0.5
   caption: "Photo credit: [**Helloquence @ Unsplash**](https://unsplash.com/@helloquence)"
 ---
+{% include toc %}
+
+# Offer
 
 I can provide you the following services:
 
@@ -41,7 +44,7 @@ I can:
 - Refactor your code,
 - Solve another complex problems.
 
-## App Development:
+## App Development
 **Me and my team, we can also create any mobile Android & iOS app for you.**
 
 # Contact me!
