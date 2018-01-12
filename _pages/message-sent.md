@@ -1,9 +1,9 @@
 ---
 permalink: /message-sent/
-title: "Message sent succesfully!"
+title: "Message sent successfully!"
 header:
   overlay_color: "#333"
-  overlay_image: https://images.unsplash.com/photo-1473186505569-9c61870c11f9
+  overlay_image: /assets/images/msg_sent.jpeg
   cta_label: "Go back to the homepage"
   cta_url: "/"
   overlay_filter: 0.5
