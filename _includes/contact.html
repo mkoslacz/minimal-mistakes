@@ -1,6 +1,8 @@
 <form method="POST" action="https://formspree.io/contact@mateuszkoslacz.com">
-  <input type="email" name="email" placeholder="Your email">
+  <label for="email">Your email</label>
+  <input id="email" type="email" name="email" placeholder="your@email.com">
   <input type="hidden" name="_next" value="/message-sent" />
-  <textarea name="message" rows="10" placeholder="Your message"></textarea>
-  <button class="btn" type="submit">Send</button>
+  <label for="message">Your message</label>
+  <textarea id="message" name="message" rows="10" placeholder="Hi Mateusz..."></textarea>
+  <button class="btn btn--large" type="submit">Send</button>
 </form>
