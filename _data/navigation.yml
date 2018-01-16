@@ -8,7 +8,7 @@ main:
     url: https://github.com/mkoslacz/moviper
   - title: "Hire me!"
     url: /hire-me/
-  - title: '<i class="fa fa-github fa-lg"></i>'
+  - title: '<i class="fab fa-github fa-lg"></i>'
     url: https://github.com/mkoslacz/
   # - title: "Sample Posts"
   #   url: /year-archive/
