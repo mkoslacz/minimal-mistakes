@@ -7,8 +7,8 @@
 <div itemscope itemtype="http://schema.org/Person">
 
   {% if author.avatar %}
-  <a href="/about">
     <div class="author__avatar">
+      <a href="/about">
       {% if author.avatar contains "://" %}
         {% assign author_src = author.avatar %}
       {% else %}
@@ -27,8 +27,9 @@
       {% else %}
         <img src="{{ author_src }}" alt="{{ author.name }}" itemprop="image">
       {% endif %}
+    </a>
     </div>
-  </a>
+
   {% endif %}
 
   <div class="author__content">
