@@ -1,5 +1,5 @@
 ---
-title: "Moviper - the Android VIPER Library"
+title: "The CLI app figure of speech"
 date: "2017-02-08 08:38:09 +0100"
 header:
   overlay_color: "#333"
